@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<name>Prevent Topic View Increase by Author</name>
+<id>dougiefresh:PreventTopicViewIncreasebyAuthor</id>
+<version>1.0</version>
+
+<file name="$sourcedir/Display.php">
+	<operation>
+		<search position="replace"><![CDATA[WHERE id_topic = {int:current_topic}',
+			array(
+				'current_topic' => $topic,]]></search>
+		<add><![CDATA[WHERE id_topic = {int:current_topic}
+				AND id_member_started != {int:current_member}',
+			array(
+				'current_topic' => $topic,
+				'current_member' => $user_info['id'],]]></add>
+	</operation>
+</file>
+</modification>
